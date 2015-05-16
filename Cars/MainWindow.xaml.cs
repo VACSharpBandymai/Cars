@@ -108,6 +108,26 @@ namespace Cars
 
             Lentele.DataContext = Lenta.DefaultView;
         }
+
+        void Paieska()
+        {
+            string[][] Paieskai = new string[0][];
+
+            for (int i = 0; i < Eil.Length; i++)
+            {
+                if (int.Parse(Nuo.Text) <= Kilometrazas[i] && int.Parse(Iki.Text) >= Kilometrazas[i])
+                {
+                    Paieskai = Paieskai.Concat(new string[][] { Masyvas[i] }).ToArray();
+                }
+            }
+
+            PildytiLentele(GridasPaieska, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas" }, Paieskai);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Paieska();
+        }
     }
 }
 

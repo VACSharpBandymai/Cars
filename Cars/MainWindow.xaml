@@ -5,13 +5,37 @@
     <Grid>
         <TabControl HorizontalAlignment="Left" Height="310" VerticalAlignment="Top" Width="517">
             <TabItem Header="Duomenys">
-                <DataGrid x:Name="Gridas" ItemsSource="{Binding}" HorizontalAlignment="Left" Margin="0,-2,-4,-4" VerticalAlignment="Top" Height="284" Width="511" CanUserAddRows="False"/>
+                <DataGrid x:Name="GridasDuomenys" ItemsSource="{Binding}" HorizontalAlignment="Left" Margin="-9,-2,-4,-16" VerticalAlignment="Top" Height="296" Width="520" CanUserAddRows="False"/>
 
             </TabItem>
             <TabItem Header="Kuro Tipai">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid x:Name="Gridas1" ItemsSource="{Binding}" HorizontalAlignment="Left" Margin="25,19,0,0" VerticalAlignment="Top" Height="207" Width="453"/>
+                    <TabControl>
+                        <TabItem Header="Dyzelis">
+                            <DataGrid x:Name="GridasDyzelio" ItemsSource="{Binding}" HorizontalAlignment="Left" Margin="-9,-2,-14,-4" VerticalAlignment="Top" Height="265" Width="520" CanUserAddRows="False"/>
+
+                        </TabItem>
+                        <TabItem Header="Benzinas">
+                            <DataGrid x:Name="GridasBenzino" ItemsSource="{Binding}" HorizontalAlignment="Left" Margin="-12,-2,-14,-4" VerticalAlignment="Top" Height="267" Width="523" CanUserAddRows="False"/>
+
+                        </TabItem>
+                        <TabItem Header="Dujos">
+                            <DataGrid x:Name="GridasDujos" ItemsSource="{Binding}" HorizontalAlignment="Left" Margin="-9,-2,-14,-4" VerticalAlignment="Top" Height="270" Width="520" CanUserAddRows="False"/>
+
+                        </TabItem>
+                    </TabControl>
                 </Grid>
+
+            </TabItem>
+            <TabItem Header="Atstumas">
+                <TabControl>
+                    <TabItem Header="Mazai KM Pravaziuotu Auto">
+                        <DataGrid x:Name="GridasMazuKm" ItemsSource="{Binding}" HorizontalAlignment="Left" Margin="-9,-2,-14,-4" VerticalAlignment="Top" Height="265" Width="520" CanUserAddRows="False"/>
+                    </TabItem>
+                    <TabItem Header="Daug KM Pravaziuotu Auto">
+                        <DataGrid x:Name="GridasDideliuKm" ItemsSource="{Binding}" HorizontalAlignment="Left" Margin="-9,-2,-14,-4" VerticalAlignment="Top" Height="265" Width="520" CanUserAddRows="False"/>
+                    </TabItem>
+                </TabControl>
             </TabItem>
         </TabControl>
 

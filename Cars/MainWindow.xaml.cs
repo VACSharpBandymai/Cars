@@ -57,26 +57,47 @@ namespace Cars
                 Metai[i] = int.Parse(Dalys[4]);
                 KuroTipas[i] = Dalys[5];
             }
-           
-            PildytiLentele(Gridas, new string[] {"Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas"}, Masyvas);
 
-            int skaicuok = 0;
-            string[][] Filtrui = new string[0][];
+            PildytiLentele(GridasDuomenys, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas" }, Masyvas);
+
+            string[][] Dyzelinas = new string[0][];
+            string[][] Benzinas = new string[0][];
+            string[][] Dujos = new string[0][];
             //Filtrui[0] = new string[6];
             //for(int i = 0; i < Eil.Length; i++) Filtrui[i] = new string[6];
             for (int i = 0; i < Eil.Length; i++)
             {
-                // Pas tave duomenu faile dyzelinas (ar kaip ten jis) nurodytas su tarpu pries zodi, tai ir tikrini su tarpu.
-                // Jei be tarpo, tai tikrini taip
-                // KuroTipas[i].Contains("dyzelinas");
-                if (KuroTipas[i] == " dyzelinas")
+                if (KuroTipas[i].Contains("Dyzelinas"))
                 {
-                    Filtrui = Filtrui.Concat(new string[][]{Masyvas[i]}).ToArray();
-                    skaicuok++;
+                    Dyzelinas = Dyzelinas.Concat(new string[][] { Masyvas[i] }).ToArray();
+                }
+                if (KuroTipas[i].Contains("Benzinas"))
+                {
+                    Benzinas = Benzinas.Concat(new string[][] { Masyvas[i] }).ToArray();
+                }
+                if (KuroTipas[i].Contains("Dujos"))
+                {
+                    Dujos = Dujos.Concat(new string[][] { Masyvas[i] }).ToArray();
                 }
             }
-            PildytiLentele(Gridas1, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas" }, Filtrui);
-        }
+                  PildytiLentele(GridasDyzelio, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas" }, Dyzelinas);
+                  PildytiLentele(GridasBenzino, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas" }, Benzinas);
+                  PildytiLentele(GridasDujos, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas" }, Dujos);
+
+                  string[][] MazasKm = new string[0][];
+                  string[][] DidelisKm = new string[0][];
+                  for (int i = 0; i < Eil.Length; i++)
+                  {
+                      if (Kilometrazas[i] <= 200000)
+                      {
+                          MazasKm = MazasKm.Concat(new string[][] { Masyvas[i] }).ToArray();
+                      }
+                      else DidelisKm = DidelisKm.Concat(new string[][] { Masyvas[i] }).ToArray();
+                  }
+                  PildytiLentele(GridasMazuKm, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas" }, MazasKm);
+                  PildytiLentele(GridasDideliuKm, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas" }, DidelisKm); 
+  }
+        
         void PildytiLentele(DataGrid Lentele, string[] Stulpeliai, string[][] Eilute)
         {
             DataTable Lenta = new DataTable();

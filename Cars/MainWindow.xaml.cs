@@ -51,30 +51,34 @@ namespace Cars
                 String[] Dalys = Eilute.Split(new String[] { "|" }, System.StringSplitOptions.RemoveEmptyEntries);
                 for (int j = 0; j < Dalys.Length; j++) Masyvas[i][j] = Dalys[j];
                 Nr[i] = int.Parse(Dalys[0]);
-                ValstybNr[i]= Dalys[1];
+                ValstybNr[i] = Dalys[1];
                 Kilometrazas[i] = int.Parse(Dalys[2]);
                 Modelis[i] = Dalys[3];
                 Metai[i] = int.Parse(Dalys[4]);
                 KuroTipas[i] = Dalys[5];
             }
-            
-            DataTable G = new DataTable();
-            G.Columns.Add("Numeris");
-            G.Columns.Add("ValstybesNr");
-            G.Columns.Add("Kilometrazas");
-            G.Columns.Add("MasinosMarke");
-            G.Columns.Add("Metai");
-            G.Columns.Add("KuroTipas");
+           
+            PildytiLentele(Gridas, new string[] {"Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas"},
+               Masyvas);
 
+            double Kiekis = 0;
             for (int i = 0; i < Eil.Length; i++)
             {
-                //for (int j = 0; i < 6; j++ )
-                    G.Rows.Add(Nr[i], ValstybNr[i], Kilometrazas[i], Modelis[i], Metai[i], KuroTipas[i]);
+                Kiekis++;
             }
+           PildytiLentele(Gridas1, new string[] {"Automobiliu kiekis"}, new string[][] {new string[] {Kiekis.ToString()}});
+           
+        }
+        void PildytiLentele(DataGrid Lentele, string[] Stulpeliai, string[][] Eilute)
+        {
+            DataTable Lenta = new DataTable();
+            //foreach (string Stulpelis in Stulpeliai) Lenta.Columns.Add(Stulpelis);
+            //foreach (string[] Eile in Eilute) Lenta.Rows.Add(Eile);
+            for (int i = 0; i < Stulpeliai.Length; i++) Lenta.Columns.Add(Stulpeliai[i]);
+                for (int i = 0; i < Eilute.Length; i++) Lenta.Rows.Add(Eilute[i]);
 
-                Gridas.DataContext = G.DefaultView;
-
-            
+            Lentele.DataContext = Lenta.DefaultView;
         }
     }
 }
+

@@ -46,9 +46,10 @@ namespace Cars
 
             for (int i = 0; i < Eil.Length; i++)
             {
+                Masyvas[i] = new string[6];
                 String Eilute = Eil[i];
                 String[] Dalys = Eilute.Split(new String[] { "|" }, System.StringSplitOptions.RemoveEmptyEntries);
-                for (int j = 0; j < 6; j++) Masyvas[i][j] = Dalys[j];
+                for (int j = 0; j < Dalys.Length; j++) Masyvas[i][j] = Dalys[j];
                 Nr[i] = int.Parse(Dalys[0]);
                 ValstybNr[i]= Dalys[1];
                 Kilometrazas[i] = int.Parse(Dalys[2]);
@@ -56,7 +57,7 @@ namespace Cars
                 Metai[i] = int.Parse(Dalys[4]);
                 KuroTipas[i] = Dalys[5];
             }
-
+            
             DataTable G = new DataTable();
             G.Columns.Add("Numeris");
             G.Columns.Add("ValstybesNr");
@@ -67,13 +68,13 @@ namespace Cars
 
             for (int i = 0; i < Eil.Length; i++)
             {
-                for (int j = 0; i < 6; j++ )
+                //for (int j = 0; i < 6; j++ )
                     G.Rows.Add(Nr[i], ValstybNr[i], Kilometrazas[i], Modelis[i], Metai[i], KuroTipas[i]);
             }
 
                 Gridas.DataContext = G.DefaultView;
 
-
+            
         }
     }
 }

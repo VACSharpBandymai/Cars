@@ -11,3 +11,16 @@
 \\psf\Home\Documents\C#_Darbai\Cars\Cars\obj\Debug\Cars.csproj.GenerateResource.Cache
 \\psf\Home\Documents\C#_Darbai\Cars\Cars\obj\Debug\Cars.exe
 \\psf\Home\Documents\C#_Darbai\Cars\Cars\obj\Debug\Cars.pdb
+C:\Users\Andrius\Documents\GitHub\Cars\Cars\bin\Debug\Cars.exe.config
+C:\Users\Andrius\Documents\GitHub\Cars\Cars\bin\Debug\Cars.exe
+C:\Users\Andrius\Documents\GitHub\Cars\Cars\bin\Debug\Cars.pdb
+C:\Users\Andrius\Documents\GitHub\Cars\Cars\obj\Debug\Cars.csprojResolveAssemblyReference.cache
+C:\Users\Andrius\Documents\GitHub\Cars\Cars\obj\Debug\MainWindow.baml
+C:\Users\Andrius\Documents\GitHub\Cars\Cars\obj\Debug\MainWindow.g.cs
+C:\Users\Andrius\Documents\GitHub\Cars\Cars\obj\Debug\App.g.cs
+C:\Users\Andrius\Documents\GitHub\Cars\Cars\obj\Debug\Cars_MarkupCompile.cache
+C:\Users\Andrius\Documents\GitHub\Cars\Cars\obj\Debug\Cars.g.resources
+C:\Users\Andrius\Documents\GitHub\Cars\Cars\obj\Debug\Cars.Properties.Resources.resources
+C:\Users\Andrius\Documents\GitHub\Cars\Cars\obj\Debug\Cars.csproj.GenerateResource.Cache
+C:\Users\Andrius\Documents\GitHub\Cars\Cars\obj\Debug\Cars.exe
+C:\Users\Andrius\Documents\GitHub\Cars\Cars\obj\Debug\Cars.pdb

@@ -5,16 +5,15 @@
     <Grid>
         <TabControl HorizontalAlignment="Left" Height="310" VerticalAlignment="Top" Width="517">
             <TabItem Header="Duomenys">
-                <DataGrid x:Name="Gridas" ItemsSource="{Binding}" HorizontalAlignment="Left" Margin="0,-2,-4,0" VerticalAlignment="Top" Height="227" Width="511" CanUserAddRows="False"/>
+                <DataGrid x:Name="Gridas" ItemsSource="{Binding}" HorizontalAlignment="Left" Margin="0,-2,-4,-4" VerticalAlignment="Top" Height="284" Width="511" CanUserAddRows="False"/>
 
             </TabItem>
             <TabItem Header="Kuro Tipai">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid x:Name="Gridas1" HorizontalAlignment="Left" Margin="25,19,0,0" VerticalAlignment="Top" Height="207" Width="453"/>
+                    <DataGrid x:Name="Gridas1" ItemsSource="{Binding}" HorizontalAlignment="Left" Margin="25,19,0,0" VerticalAlignment="Top" Height="207" Width="453"/>
                 </Grid>
             </TabItem>
         </TabControl>
-        <DataGrid x:Name="GridasKiekis" HorizontalAlignment="Left" Margin="32,261,0,0" VerticalAlignment="Top" Height="38" Width="438"/>
 
     </Grid>
 </Window>

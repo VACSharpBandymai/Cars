@@ -61,12 +61,16 @@ namespace Cars
             PildytiLentele(Gridas, new string[] {"Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas"},
                Masyvas);
 
-            double Kiekis = 0;
+            int skaicuok = 0;
             for (int i = 0; i < Eil.Length; i++)
             {
-                Kiekis++;
+                
+                if (KuroTipas[i] == "dyzelinas")
+                    skaicuok++;
+                    PildytiLentele(Gridas1, new string[] {"Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas"},
+               Masyvas);
             }
-           PildytiLentele(Gridas1, new string[] {"Automobiliu kiekis"}, new string[][] {new string[] {Kiekis.ToString()}});
+           
            
         }
         void PildytiLentele(DataGrid Lentele, string[] Stulpeliai, string[][] Eilute)

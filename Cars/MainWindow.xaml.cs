@@ -58,20 +58,24 @@ namespace Cars
                 KuroTipas[i] = Dalys[5];
             }
            
-            PildytiLentele(Gridas, new string[] {"Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas"},
-               Masyvas);
+            PildytiLentele(Gridas, new string[] {"Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas"}, Masyvas);
 
             int skaicuok = 0;
+            string[][] Filtrui = new string[0][];
+            //Filtrui[0] = new string[6];
+            //for(int i = 0; i < Eil.Length; i++) Filtrui[i] = new string[6];
             for (int i = 0; i < Eil.Length; i++)
             {
-                
-                if (KuroTipas[i] == "dyzelinas")
+                // Pas tave duomenu faile dyzelinas (ar kaip ten jis) nurodytas su tarpu pries zodi, tai ir tikrini su tarpu.
+                // Jei be tarpo, tai tikrini taip
+                // KuroTipas[i].Contains("dyzelinas");
+                if (KuroTipas[i] == " dyzelinas")
+                {
+                    Filtrui = Filtrui.Concat(new string[][]{Masyvas[i]}).ToArray();
                     skaicuok++;
-                    PildytiLentele(Gridas1, new string[] {"Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas"},
-               Masyvas);
+                }
             }
-           
-           
+            PildytiLentele(Gridas1, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas" }, Filtrui);
         }
         void PildytiLentele(DataGrid Lentele, string[] Stulpeliai, string[][] Eilute)
         {

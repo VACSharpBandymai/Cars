@@ -40,15 +40,16 @@
             <TabItem Header="Paieska">
                 <Grid>
                     <DataGrid x:Name="GridasPaieska" ItemsSource="{Binding}" HorizontalAlignment="Left" Margin="-9,37,-4,-16" VerticalAlignment="Top" Height="257" Width="520" CanUserAddRows="False"/>
-                    <Button Content="Ieskoti" HorizontalAlignment="Left" Margin="5,10,0,0" VerticalAlignment="Top" Width="46" Click="Button_Click"/>
-                    <TextBox x:Name="Nuo" HorizontalAlignment="Left" Height="23" Margin="166,8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="78"/>
-                    <TextBox x:Name="Iki" HorizontalAlignment="Left" Height="23" Margin="336,8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="78"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="130,13,0,0" TextWrapping="Wrap" Text="Nuo" VerticalAlignment="Top"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="266,11,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Iki"/><LineBreak/><Run/></TextBlock>
-                    <TextBlock HorizontalAlignment="Left" Margin="90,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Rida"/><LineBreak/><Run/></TextBlock>
+                    <Button Content="Ieskoti" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top" Width="46" Click="Button_Click"/>
+                    <TextBox x:Name="Nuo" HorizontalAlignment="Left" Height="23" Margin="284,8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="78"/>
+                    <TextBox x:Name="Iki" HorizontalAlignment="Left" Height="23" Margin="397,8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="78"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="245,10,0,0" TextWrapping="Wrap" Text="Nuo" VerticalAlignment="Top"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="376,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Iki"/><LineBreak/><Run/></TextBlock>
+                    <ComboBox x:Name="cbx" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="94,8,0,0"/>
                 </Grid>
             </TabItem>
         </TabControl>
+        
 
 
     </Grid>

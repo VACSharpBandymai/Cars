@@ -80,53 +80,77 @@ namespace Cars
                     Dujos = Dujos.Concat(new string[][] { Masyvas[i] }).ToArray();
                 }
             }
-                  PildytiLentele(GridasDyzelio, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas" }, Dyzelinas);
-                  PildytiLentele(GridasBenzino, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas" }, Benzinas);
-                  PildytiLentele(GridasDujos, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas" }, Dujos);
+            PildytiLentele(GridasDyzelio, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas" }, Dyzelinas);
+            PildytiLentele(GridasBenzino, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas" }, Benzinas);
+            PildytiLentele(GridasDujos, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas" }, Dujos);
 
-                  string[][] MazasKm = new string[0][];
-                  string[][] DidelisKm = new string[0][];
-                  for (int i = 0; i < Eil.Length; i++)
-                  {
-                      if (Kilometrazas[i] <= 200000)
-                      {
-                          MazasKm = MazasKm.Concat(new string[][] { Masyvas[i] }).ToArray();
-                      }
-                      else DidelisKm = DidelisKm.Concat(new string[][] { Masyvas[i] }).ToArray();
-                  }
-                  PildytiLentele(GridasMazuKm, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas" }, MazasKm);
-                  PildytiLentele(GridasDideliuKm, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas" }, DidelisKm); 
-  }
-        
+            string[][] MazasKm = new string[0][];
+            string[][] DidelisKm = new string[0][];
+            for (int i = 0; i < Eil.Length; i++)
+            {
+                if (Kilometrazas[i] <= 200000)
+                {
+                    MazasKm = MazasKm.Concat(new string[][] { Masyvas[i] }).ToArray();
+                }
+                else DidelisKm = DidelisKm.Concat(new string[][] { Masyvas[i] }).ToArray();
+            }
+            PildytiLentele(GridasMazuKm, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas" }, MazasKm);
+            PildytiLentele(GridasDideliuKm, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas" }, DidelisKm);
+            boxas();
+            
+        }
+
         void PildytiLentele(DataGrid Lentele, string[] Stulpeliai, string[][] Eilute)
         {
             DataTable Lenta = new DataTable();
             //foreach (string Stulpelis in Stulpeliai) Lenta.Columns.Add(Stulpelis);
             //foreach (string[] Eile in Eilute) Lenta.Rows.Add(Eile);
             for (int i = 0; i < Stulpeliai.Length; i++) Lenta.Columns.Add(Stulpeliai[i]);
-                for (int i = 0; i < Eilute.Length; i++) Lenta.Rows.Add(Eilute[i]);
+            for (int i = 0; i < Eilute.Length; i++) Lenta.Rows.Add(Eilute[i]);
 
             Lentele.DataContext = Lenta.DefaultView;
         }
 
         void Paieska()
         {
-            string[][] Paieskai = new string[0][];
-
-            for (int i = 0; i < Eil.Length; i++)
+            string[][] PaieskaiRida = new string[0][];
+            string[][] PaieskaiMetai = new string[0][];
+            try
             {
-                if (int.Parse(Nuo.Text) <= Kilometrazas[i] && int.Parse(Iki.Text) >= Kilometrazas[i])
+                for (int i = 0; i < Eil.Length; i++)
                 {
-                    Paieskai = Paieskai.Concat(new string[][] { Masyvas[i] }).ToArray();
+                    if (cbx.Items.Contains("Rida"))
+                    {
+                        if (Kilometrazas[i] >= int.Parse(Nuo.Text) && Kilometrazas[i] <= int.Parse(Iki.Text))
+                        {
+                            PaieskaiRida = PaieskaiRida.Concat(new string[][] { Masyvas[i] }).ToArray();
+                        }
+                    }
+                    else if (cbx.Items.Contains("Metai"))
+                    {
+                        if (Metai[i] >= int.Parse(Nuo.Text) && Metai[i] <= int.Parse(Iki.Text))
+                        {
+                            PaieskaiMetai = PaieskaiMetai.Concat(new string[][] { Masyvas[i] }).ToArray();
+                        }
+                    }
                 }
             }
+            catch { }
 
-            PildytiLentele(GridasPaieska, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas" }, Paieskai);
+            PildytiLentele(GridasPaieska, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas" }, PaieskaiRida);
+            PildytiLentele(GridasPaieska, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas" }, PaieskaiMetai);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Paieska();
+            
+        }
+
+        void boxas()
+        {
+            cbx.Items.Add("Rida");
+            cbx.Items.Add("Metai");
         }
     }
 }

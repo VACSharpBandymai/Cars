@@ -115,30 +115,33 @@ namespace Cars
         {
             string[][] PaieskaiRida = new string[0][];
             string[][] PaieskaiMetai = new string[0][];
-            try
+            //try
             {
-                for (int i = 0; i < Eil.Length; i++)
+                //for (int i = 0; i < Eil.Length; i++)
                 {
-                    if (cbx.Items.Contains("Rida"))
+                    if (cbx.SelectedItem.ToString().Contains("Rida"))
                     {
-                        if (Kilometrazas[i] >= int.Parse(Nuo.Text) && Kilometrazas[i] <= int.Parse(Iki.Text))
-                        {
-                            PaieskaiRida = PaieskaiRida.Concat(new string[][] { Masyvas[i] }).ToArray();
-                        }
+                        for (int i = 0; i < Eil.Length; i++)
+                            if (Kilometrazas[i] >= int.Parse(Nuo.Text) && Kilometrazas[i] <= int.Parse(Iki.Text))
+                            {
+                                PaieskaiRida = PaieskaiRida.Concat(new string[][] { Masyvas[i] }).ToArray();
+                            }
+                        PildytiLentele(GridasPaieska, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas" }, PaieskaiRida);
                     }
-                    else if (cbx.Items.Contains("Metai"))
+                    else if (cbx.SelectedItem.ToString().Contains("Metai"))
                     {
-                        if (Metai[i] >= int.Parse(Nuo.Text) && Metai[i] <= int.Parse(Iki.Text))
-                        {
-                            PaieskaiMetai = PaieskaiMetai.Concat(new string[][] { Masyvas[i] }).ToArray();
-                        }
+                        for (int i = 0; i < Eil.Length; i++)
+                            if (Metai[i] >= int.Parse(Nuo.Text) && Metai[i] <= int.Parse(Iki.Text))
+                            {
+                                PaieskaiMetai = PaieskaiMetai.Concat(new string[][] { Masyvas[i] }).ToArray();
+                            }
+                        PildytiLentele(GridasPaieska, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas" }, PaieskaiMetai);
                     }
                 }
             }
-            catch { }
+            //catch { }
 
-            PildytiLentele(GridasPaieska, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas" }, PaieskaiRida);
-            PildytiLentele(GridasPaieska, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas" }, PaieskaiMetai);
+            //PildytiLentele(GridasPaieska, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas" }, PaieskaiMetai);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

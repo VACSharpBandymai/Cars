@@ -227,17 +227,23 @@ namespace Cars
                     PildytiLentele(GridasUzsakymas, new string[] { "Valstyves Numeris", "Marke", "Pagaminimo Metai", "Rida", "Uzsakymo Data", "Uzsakymo Pab.Terminas" },
                     Masyvas1);
 
-                    Failui = new string[Eil.Length];
+                    Failui = new string[Masyvas1.Length]; // Cia is eil, pakeiciau i Masyvas1
                     for (int i = 0; i < Failui.Length; i++) { 
                     Failui[i] = ValstybesNR[i] + "|" + Marke[i] + "|" + PagaminimoMetai[i] + "|" + Rida[i] + "|" + UzsakymoData[i] + "|" + UzsakymoPabaiga[i];
+                    //for (int j = 0; j < Failui.Length; j++ ) // nezinau ar cia Failui.Lenght ar EiluteUzsakymo? manau failui, nes jis cia irasinejamas i faila.
+                    //    Masyvas1[i][j] = Failui[i]; // manau neteisingai priskiriu.. man reikia priskirti, kad galeciau funkcijoj NuskaitytiUzsakymus() pildyti lentele.
+                    }//nebent gal galima iskart tam pildyme duoti Failui pildyti, bet netinka, nes funkcija aprasyta kaip dvimacio masyvo
+                    
+                    // As nelabai supratau ko nori Tu su tuo ciklu pasiekt.
+                    // I faila rasoma tada, kai jau visa masyva turi suformuota. 
+                    // To Masyvas1 [i][j] net nesupratau kam tau reikia?
+                    // O nepridedavo todel, kad Masyvas[i] dydis buvo 6, o sukai cikla 10 kartu.
+                    // Ir jis turedavo nulust, bet catch sugaudydavo, ir programa neluzdavo ir nerodydavo tau kur negerai.
                     File.WriteAllLines("Pirkimai.txt", Failui);
-                    for (int j = 0; j < Failui.Length; j++ ) // nezinau ar cia Failui.Lenght ar EiluteUzsakymo? manau failui, nes jis cia irasinejamas i faila.
-                        Masyvas1[i][j] = Failui[i]; // manau neteisingai priskiriu.. man reikia priskirti, kad galeciau funkcijoj NuskaitytiUzsakymus() pildyti lentele.
-                }                                    //nebent gal galima iskart tam pildyme duoti Failui pildyti, bet netinka, nes funkcija aprasyta kaip dvimacio masyvo
                 }
                 else MessageBox.Show("Neuzpildete visu laukeliu!");
             }
-            catch { MessageBox.Show("Neuzpildete visu laukeliu!"); };
+            catch { MessageBox.Show("KLAIDA"); };
         }
 
         void NuskaitytiUzsakymus()

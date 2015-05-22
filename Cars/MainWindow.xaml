@@ -1,12 +1,15 @@
 ﻿<Window x:Class="Cars.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Cars" Height="350" Width="525">
+        Title="Cars" Height="345" Width="649">
     <Grid>
-        <TabControl HorizontalAlignment="Left" Height="310" VerticalAlignment="Top" Width="517">
+        <TabControl HorizontalAlignment="Left" Height="310" VerticalAlignment="Top" Width="631">
             <TabItem Header="Duomenys">
-                <DataGrid x:Name="GridasDuomenys" ItemsSource="{Binding}" HorizontalAlignment="Left" Margin="-9,-2,-4,-16" VerticalAlignment="Top" Height="296" Width="520" CanUserAddRows="False"/>
-
+                <Grid>
+                    <Button Content="Trinti&#xD;&#xA;" HorizontalAlignment="Left" Margin="383,254,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1" Height="24"/>
+                    <DataGrid x:Name="GridasDuomenys" ItemsSource="{Binding}" HorizontalAlignment="Left" Margin="-9,-2,0,0" VerticalAlignment="Top" Height="256" Width="620" CanUserAddRows="False"/>
+                    <Label x:Name="Laikas" Content="" HorizontalAlignment="Left" Margin="92,252,0,0" VerticalAlignment="Top" Width="141"/>
+                </Grid>
             </TabItem>
             <TabItem Header="Kuro Tipai">
                 <Grid Background="#FFE5E5E5">
@@ -48,8 +51,33 @@
                     <ComboBox x:Name="cbx" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="94,8,0,0"/>
                 </Grid>
             </TabItem>
+            <TabItem Header="UzsakytiDuomenys" Margin="-4,0,0,0">
+                <Grid>
+                    <Button Content="Trinti&#xD;&#xA;" HorizontalAlignment="Left" Margin="383,254,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1" Height="24"/>
+                    <DataGrid x:Name="GridasUzsakymas" ItemsSource="{Binding}" HorizontalAlignment="Left" Margin="-9,-2,0,0" VerticalAlignment="Top" Height="256" Width="620" CanUserAddRows="False"/>
+                    <Label x:Name="Laikas1" Content="" HorizontalAlignment="Left" Margin="92,252,0,0" VerticalAlignment="Top" Width="141"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Pildyti">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="95*"/>
+                        <ColumnDefinition Width="112*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="PildymoMygtukas" Content="Papildyti" HorizontalAlignment="Left" Margin="15,76,0,0" VerticalAlignment="Top" Width="75" Height="24" Grid.Column="1" Click="PildymoMygtukas_Click" IsDefault="True"/>
+                    <Label x:Name="Laikas2" Content="" HorizontalAlignment="Left" Margin="92,252,0,0" VerticalAlignment="Top" Width="141"/>
+                    <TextBox x:Name="Valst" HorizontalAlignment="Left" Height="23" Margin="10,20,0,0" TextWrapping="Wrap" Text="Valstyb" VerticalAlignment="Top" Width="120" MouseMove="Valst_MouseMove"/>
+                    <TextBox x:Name="MarkeText" HorizontalAlignment="Left" Height="23" Margin="10,48,0,0" TextWrapping="Wrap" Text="Marke" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="PagMetai" HorizontalAlignment="Left" Height="23" Margin="10,76,0,0" TextWrapping="Wrap" Text="pagaminimo metai" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="RidaText" HorizontalAlignment="Left" Height="23" Margin="10,104,0,0" TextWrapping="Wrap" Text="rida" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="UzsakymoDataText" HorizontalAlignment="Left" Height="23" Margin="10,132,0,0" TextWrapping="Wrap" Text="uzsakymo data" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="KadaAtlikti" HorizontalAlignment="Left" Height="23" Margin="10,160,0,0" TextWrapping="Wrap" Text="Iki" VerticalAlignment="Top" Width="120"/>
+
+                </Grid>
+            </TabItem>
+
         </TabControl>
-        
+
 
 
     </Grid>

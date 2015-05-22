@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data;
 using System.IO;
+using System.Windows.Threading;
 
 namespace Cars
 {
@@ -29,11 +30,29 @@ namespace Cars
         int[] Metai;
         string[] KuroTipas;
         string[] Eil;
+        double[] Kaina;
         string[][] Masyvas;
+        DispatcherTimer T = new DispatcherTimer();
+
+        //Nauji masyvai uzsakymui
+        string[] ValstybesNR = new string[0];
+        string[] Marke = new string[0];
+        int[] PagaminimoMetai = new int[0];
+        int[] Rida = new int[0];
+        string[] UzsakymoData = new string[0];
+        int[] UzsakymoPabaiga = new int[0];
+        string[][] Masyvas1 = new string[0][];
+        string[] Failui;
+        string[] EiluteUzsakymo;
+
 
         public MainWindow()
         {
             InitializeComponent();
+            T.Interval = new TimeSpan(0, 0, 1);
+            T.Tick += T_Tick;
+            T.Start();
+
 
             Eil = File.ReadAllLines("Cars.txt");
             Masyvas = new string[Eil.Length][];
@@ -43,10 +62,11 @@ namespace Cars
             Modelis = new string[Eil.Length];
             Metai = new int[Eil.Length];
             KuroTipas = new string[Eil.Length];
+            Kaina = new double[Eil.Length];
 
             for (int i = 0; i < Eil.Length; i++)
             {
-                Masyvas[i] = new string[6];
+                Masyvas[i] = new string[7];
                 String Eilute = Eil[i];
                 String[] Dalys = Eilute.Split(new String[] { "|" }, System.StringSplitOptions.RemoveEmptyEntries);
                 for (int j = 0; j < Dalys.Length; j++) Masyvas[i][j] = Dalys[j];
@@ -56,9 +76,10 @@ namespace Cars
                 Modelis[i] = Dalys[3];
                 Metai[i] = int.Parse(Dalys[4]);
                 KuroTipas[i] = Dalys[5];
+                Kaina[i] = double.Parse(Dalys[6]);
             }
 
-            PildytiLentele(GridasDuomenys, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas" }, Masyvas);
+            PildytiLentele(GridasDuomenys, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas", "Kaina"}, Masyvas);
 
             string[][] Dyzelinas = new string[0][];
             string[][] Benzinas = new string[0][];
@@ -80,9 +101,9 @@ namespace Cars
                     Dujos = Dujos.Concat(new string[][] { Masyvas[i] }).ToArray();
                 }
             }
-            PildytiLentele(GridasDyzelio, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas" }, Dyzelinas);
-            PildytiLentele(GridasBenzino, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas" }, Benzinas);
-            PildytiLentele(GridasDujos, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas" }, Dujos);
+            PildytiLentele(GridasDyzelio, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas", "Kaina" }, Dyzelinas);
+            PildytiLentele(GridasBenzino, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas", "Kaina" }, Benzinas);
+            PildytiLentele(GridasDujos, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas", "Kaina" }, Dujos);
 
             string[][] MazasKm = new string[0][];
             string[][] DidelisKm = new string[0][];
@@ -94,10 +115,18 @@ namespace Cars
                 }
                 else DidelisKm = DidelisKm.Concat(new string[][] { Masyvas[i] }).ToArray();
             }
-            PildytiLentele(GridasMazuKm, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas" }, MazasKm);
-            PildytiLentele(GridasDideliuKm, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas" }, DidelisKm);
-            boxas();
+            PildytiLentele(GridasMazuKm, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas", "Kaina" }, MazasKm);
+            PildytiLentele(GridasDideliuKm, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas", "Kaina" }, DidelisKm);
             
+            boxas();
+            NuskaitytiUzsakymus();
+        }
+
+        void T_Tick(object sender, EventArgs e)
+        {
+            Laikas.Content = DateTime.Now.ToLongTimeString();
+            Laikas1.Content = DateTime.Now.ToLongTimeString();
+            Laikas2.Content = DateTime.Now.ToLongTimeString();
         }
 
         void PildytiLentele(DataGrid Lentele, string[] Stulpeliai, string[][] Eilute)
@@ -115,9 +144,8 @@ namespace Cars
         {
             string[][] PaieskaiRida = new string[0][];
             string[][] PaieskaiMetai = new string[0][];
-            //try
-            {
-                //for (int i = 0; i < Eil.Length; i++)
+            string[][] PaieskaiKaina = new string[0][];
+            
                 {
                     if (cbx.SelectedItem.ToString().Contains("Rida"))
                     {
@@ -126,7 +154,7 @@ namespace Cars
                             {
                                 PaieskaiRida = PaieskaiRida.Concat(new string[][] { Masyvas[i] }).ToArray();
                             }
-                        PildytiLentele(GridasPaieska, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas" }, PaieskaiRida);
+                        PildytiLentele(GridasPaieska, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas", "Kaina" }, PaieskaiRida);
                     }
                     else if (cbx.SelectedItem.ToString().Contains("Metai"))
                     {
@@ -135,14 +163,19 @@ namespace Cars
                             {
                                 PaieskaiMetai = PaieskaiMetai.Concat(new string[][] { Masyvas[i] }).ToArray();
                             }
-                        PildytiLentele(GridasPaieska, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas" }, PaieskaiMetai);
+                        PildytiLentele(GridasPaieska, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas", "Kaina" }, PaieskaiMetai);
+                    }
+                    else if (cbx.SelectedItem.ToString().Contains("Kaina"))
+                    {
+                        for (int i = 0; i < Eil.Length; i++)
+                            if (Kaina[i] >= double.Parse(Nuo.Text) && Kaina[i] <= double.Parse(Iki.Text))
+                            {
+                                PaieskaiKaina = PaieskaiKaina.Concat(new string[][] { Masyvas[i] }).ToArray();
+                            }
+                        PildytiLentele(GridasPaieska, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas", "Kaina" }, PaieskaiKaina);
                     }
                 }
             }
-            //catch { }
-
-            //PildytiLentele(GridasPaieska, new string[] { "Numeris", "Valstybes Numeris", "Kilometrazas", "Masinos Marke", "Metai", "Kuro Tipas" }, PaieskaiMetai);
-        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -154,6 +187,80 @@ namespace Cars
         {
             cbx.Items.Add("Rida");
             cbx.Items.Add("Metai");
+            cbx.Items.Add("Kaina");   
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            TrintiIrasa(GridasDuomenys);
+        }
+
+        void TrintiIrasa(DataGrid P)
+        {
+            if (P.SelectedIndex > -1)
+            {
+                DataTable L = new DataTable();
+                L.Merge((P.DataContext as DataView).ToTable());
+                L.Rows.RemoveAt(P.SelectedIndex);
+                P.DataContext = L.DefaultView;
+            }
+            else MessageBox.Show("Pasirinkite kuria eilute norite trinti");
+        }
+
+        void Uzsakymui()
+        {
+            try
+            {
+                if (!String.IsNullOrEmpty(Valst.Text) || !String.IsNullOrEmpty(MarkeText.Text) || !String.IsNullOrEmpty(PagMetai.Text) || !String.IsNullOrEmpty(RidaText.Text)
+                        || !String.IsNullOrEmpty(UzsakymoDataText.Text) || !String.IsNullOrEmpty(KadaAtlikti.Text))
+                {
+                    ValstybesNR = ValstybesNR.Concat(new string[] { Valst.Text }).ToArray();
+                    Marke = Marke.Concat(new string[] { MarkeText.Text }).ToArray();
+                    PagaminimoMetai = PagaminimoMetai.Concat(new int[] { int.Parse(PagMetai.Text) }).ToArray();
+                    Rida = Rida.Concat(new int[] { int.Parse(RidaText.Text) }).ToArray();
+                    UzsakymoData = UzsakymoData.Concat(new string[] { UzsakymoDataText.Text.ToString() }).ToArray();
+                    UzsakymoPabaiga = UzsakymoPabaiga.Concat(new int[] { int.Parse(KadaAtlikti.Text) }).ToArray();
+
+                    Masyvas1 = Masyvas1.Concat(new string[][] { new string[] { Valst.Text, MarkeText.Text, PagMetai.Text, RidaText.Text, 
+                UzsakymoDataText.Text, KadaAtlikti.Text} }).ToArray();
+
+                    PildytiLentele(GridasUzsakymas, new string[] { "Valstyves Numeris", "Marke", "Pagaminimo Metai", "Rida", "Uzsakymo Data", "Uzsakymo Pab.Terminas" },
+                    Masyvas1);
+
+                    Failui = new string[Eil.Length];
+                    for (int i = 0; i < Failui.Length; i++) { 
+                    Failui[i] = ValstybesNR[i] + "|" + Marke[i] + "|" + PagaminimoMetai[i] + "|" + Rida[i] + "|" + UzsakymoData[i] + "|" + UzsakymoPabaiga[i];
+                    File.WriteAllLines("Pirkimai.txt", Failui);
+                    for (int j = 0; j < Failui.Length; j++ ) // nezinau ar cia Failui.Lenght ar EiluteUzsakymo? manau failui, nes jis cia irasinejamas i faila.
+                        Masyvas1[i][j] = Failui[i]; // manau neteisingai priskiriu.. man reikia priskirti, kad galeciau funkcijoj NuskaitytiUzsakymus() pildyti lentele.
+                }                                    //nebent gal galima iskart tam pildyme duoti Failui pildyti, bet netinka, nes funkcija aprasyta kaip dvimacio masyvo
+                }
+                else MessageBox.Show("Neuzpildete visu laukeliu!");
+            }
+            catch { MessageBox.Show("Neuzpildete visu laukeliu!"); };
+        }
+
+        void NuskaitytiUzsakymus()
+        {
+            EiluteUzsakymo = File.ReadAllLines("Pirkimai.txt");
+            for (int i = 0; i < EiluteUzsakymo.Length; i++) File.ReadAllLines("Pirkimai.txt");
+            PildytiLentele(GridasUzsakymas, new string[] { "Valstyves Numeris", "Marke", "Pagaminimo Metai", "Rida", "Uzsakymo Data", "Uzsakymo Pab.Terminas" },
+                    Masyvas1);
+        }
+        private void PildymoMygtukas_Click(object sender, RoutedEventArgs e)
+        {
+            Uzsakymui();
+            
+        }
+
+        private void Valst_MouseMove(object sender, MouseEventArgs e)
+        {
+            Valst.Text = "";
+            MarkeText.Text = "";
+            PagMetai.Text = "";
+            RidaText.Text = "";
+            UzsakymoDataText.Text = "";
+            KadaAtlikti.Text = "";
         }
     }
 }
